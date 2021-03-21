@@ -1,8 +1,6 @@
-out/
 target/
 .idea/
-.idea_modules/
+src/main/java/leetcode/editor/cn/all.json
+src/main/java/leetcode/editor/cn/translation.json
+.DS_Store
 *.iml
-*.ipr
-*.iws
-.idea
