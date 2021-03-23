@@ -1,4 +1,4 @@
-package com.bd.mspring.beans.factory;
+package com.bd.mspring.beans.factory.support;
 
 /**
  * @Author: baojing.he
