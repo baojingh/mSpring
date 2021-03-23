@@ -1,2 +1,2 @@
 # mSpring
-micro spring famework
+micro spring framework
