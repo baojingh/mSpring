@@ -1,5 +1,6 @@
 package com.bd.mspring.beans.factory.support;
 
+import com.bd.mspring.beans.factory.BeanFactory;
 import com.bd.mspring.beans.factory.config.BeanDefinition;
 
 /**

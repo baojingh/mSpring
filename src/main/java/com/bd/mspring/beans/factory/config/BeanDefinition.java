@@ -1,5 +1,7 @@
 package com.bd.mspring.beans.factory.config;
 
+import com.bd.mspring.beans.PropertyValues;
+
 /**
  * @Author: baojing.he
  * @Date: 2021-03-20 22:43
@@ -13,6 +15,28 @@ public class BeanDefinition {
      */
     private Class beanClass;
     private String owner;
+    private PropertyValues propertyValues;
+
+    public BeanDefinition() {
+    }
+
+    public BeanDefinition(Class beanClass) {
+        this.beanClass = beanClass;
+    }
+
+    public BeanDefinition(Class beanClass, PropertyValues propertyValues) {
+        this.beanClass = beanClass;
+        this.propertyValues = propertyValues;
+    }
+
+    public PropertyValues getPropertyValues() {
+        return propertyValues;
+    }
+
+    public void setPropertyValues(PropertyValues propertyValues) {
+        this.propertyValues = propertyValues;
+    }
+
 
     public Class getBeanClass() {
         return beanClass;
