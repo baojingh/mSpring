@@ -1,5 +1,7 @@
 package com.bd.mspring.tinyioc;
 
+import com.bd.mspring.tinyioc.factory.AutowiredCapableBeanFactory;
+import com.bd.mspring.tinyioc.factory.BeanFactory;
 import org.junit.Test;
 
 /**
@@ -11,7 +13,7 @@ public class BeanFactoryTest {
 
     @Test
     public void test() {
-        BeanFactory beanFactory = new BeanFactory();
+        BeanFactory beanFactory = new AutowiredCapableBeanFactory();
         /**
          * BeanDefinition中的bean就是指的一个实例化的对象
          */

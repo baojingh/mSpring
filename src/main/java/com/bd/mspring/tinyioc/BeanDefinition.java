@@ -7,6 +7,8 @@ package com.bd.mspring.tinyioc;
  */
 public class BeanDefinition {
     private Object bean;
+    private String beanClassName;
+    private Class beanClass;
 
     public BeanDefinition() {
     }
