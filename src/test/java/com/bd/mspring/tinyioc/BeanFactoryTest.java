@@ -17,10 +17,11 @@ public class BeanFactoryTest {
         /**
          * BeanDefinition中的bean就是指的一个实例化的对象
          */
-        BeanDefinition beanDefinition = new BeanDefinition(new HelloWorldService());
-        beanFactory.registerBeanDefinition("helloWorld", beanDefinition);
+        BeanDefinition beanDefinition = new BeanDefinition();
+        beanDefinition.setBeanClassName("com.bd.mspring.tinyioc.HelloWorldService");
+        beanFactory.registerBeanDefinition("helloWorldService", beanDefinition);
 
-        HelloWorldService helloWorldService = (HelloWorldService) beanFactory.getBean("helloWorld");
+        HelloWorldService helloWorldService = (HelloWorldService) beanFactory.getBean("helloWorldService");
         String hello = helloWorldService.hello();
         System.out.println(hello);
     }

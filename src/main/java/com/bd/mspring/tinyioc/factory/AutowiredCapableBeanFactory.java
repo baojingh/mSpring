@@ -12,15 +12,16 @@ public class AutowiredCapableBeanFactory extends AbstractBeanFactory {
     @Override
     protected Object doCreateBean(BeanDefinition beanDefinition) {
         try {
-            Object bean = beanDefinition.getClass().newInstance();
+            /**
+             * 获取当前beanDefinition的bean类型，不是getClass
+             */
+            Object bean = beanDefinition.getBeanClass().newInstance();
             return bean;
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-
-
         return null;
     }
 }
