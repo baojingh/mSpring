@@ -19,7 +19,12 @@ public abstract class AbstractBeanFactory implements BeanFactory {
     }
 
     public void registerBeanDefinition(String name, BeanDefinition beanDefinition) {
-        Object bean = doCreateBean(beanDefinition);
+        Object bean = null;
+        try {
+            bean = doCreateBean(beanDefinition);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         beanDefinition.setBean(bean);
         beanDefinitionMap.put(name, beanDefinition);
     }
@@ -30,6 +35,6 @@ public abstract class AbstractBeanFactory implements BeanFactory {
      * @param beanDefinition
      * @return
      */
-    protected abstract Object doCreateBean(BeanDefinition beanDefinition);
+    protected abstract Object doCreateBean(BeanDefinition beanDefinition) throws Exception;
 
 }

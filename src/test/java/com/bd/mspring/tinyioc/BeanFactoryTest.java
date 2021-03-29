@@ -19,11 +19,15 @@ public class BeanFactoryTest {
          */
         BeanDefinition beanDefinition = new BeanDefinition();
         beanDefinition.setBeanClassName("com.bd.mspring.tinyioc.HelloWorldService");
+
+        PropertyValues propertyValues = new PropertyValues();
+        propertyValues.addPropertyValue(new PropertyValue("text", "Hello World"));
+        beanDefinition.setPropertyValues(propertyValues);
+
         beanFactory.registerBeanDefinition("helloWorldService", beanDefinition);
 
         HelloWorldService helloWorldService = (HelloWorldService) beanFactory.getBean("helloWorldService");
-        String hello = helloWorldService.hello();
-        System.out.println(hello);
+        helloWorldService.hello();
     }
 
 

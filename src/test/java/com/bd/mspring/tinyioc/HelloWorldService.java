@@ -6,7 +6,10 @@ package com.bd.mspring.tinyioc;
  * @Description:
  */
 public class HelloWorldService {
-    public String hello() {
-        return "hello world";
+
+    private String text;
+
+    public void hello() {
+        System.out.printf(text);
     }
 }

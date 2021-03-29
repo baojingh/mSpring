@@ -1,6 +1,10 @@
 package com.bd.mspring.tinyioc.factory;
 
 import com.bd.mspring.tinyioc.BeanDefinition;
+import com.bd.mspring.tinyioc.PropertyValue;
+import com.bd.mspring.tinyioc.PropertyValues;
+
+import java.lang.reflect.Field;
 
 /**
  * @Author: baojing.he
@@ -10,18 +14,24 @@ import com.bd.mspring.tinyioc.BeanDefinition;
 public class AutowiredCapableBeanFactory extends AbstractBeanFactory {
 
     @Override
-    protected Object doCreateBean(BeanDefinition beanDefinition) {
-        try {
-            /**
-             * 获取当前beanDefinition的bean类型，不是getClass
-             */
-            Object bean = beanDefinition.getBeanClass().newInstance();
-            return bean;
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return null;
+    protected Object doCreateBean(BeanDefinition beanDefinition) throws Exception {
+        Object bean = createBeanInstance(beanDefinition);
+        applyPropertyValues(bean, beanDefinition);
+        return bean;
     }
+
+    protected Object createBeanInstance(BeanDefinition beanDefinition) throws Exception {
+        Class beanClass = beanDefinition.getBeanClass();
+        Object o = beanClass.newInstance();
+        return o;
+    }
+
+    protected void applyPropertyValues(Object bean, BeanDefinition mbd) throws Exception {
+        for (PropertyValue propertyValue : mbd.getPropertyValues().getPropertyValueList()) {
+            Field declaredField = bean.getClass().getDeclaredField(propertyValue.getName());
+            declaredField.setAccessible(true);
+            declaredField.set(bean, propertyValue.getValue());
+        }
+    }
+
 }
