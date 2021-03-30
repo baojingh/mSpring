@@ -2,7 +2,6 @@ package com.bd.mspring.tinyioc.factory;
 
 import com.bd.mspring.tinyioc.BeanDefinition;
 import com.bd.mspring.tinyioc.PropertyValue;
-import com.bd.mspring.tinyioc.PropertyValues;
 
 import java.lang.reflect.Field;
 
