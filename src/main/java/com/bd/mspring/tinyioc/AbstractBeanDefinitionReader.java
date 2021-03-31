@@ -1,6 +1,7 @@
 package com.bd.mspring.tinyioc;
 
-import com.sun.xml.internal.ws.api.ResourceLoader;
+
+import com.bd.mspring.tinyioc.io.ResourceLoader;
 
 import java.util.HashMap;
 import java.util.Map;
