@@ -1,5 +1,7 @@
 package com.bd.mspring.tinyioc;
 
+import java.util.LinkedList;
+
 /**
  * @Author: baojing.he
  * @Date: 2021-03-27 20:40
@@ -9,7 +11,7 @@ public class BeanDefinition {
     private Object bean;
     private String beanClassName;
     private Class beanClass;
-    private PropertyValues propertyValues;
+    private PropertyValues propertyValues = new PropertyValues();
 
     public BeanDefinition() {
     }

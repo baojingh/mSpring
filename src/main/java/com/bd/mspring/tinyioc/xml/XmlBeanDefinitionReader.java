@@ -3,6 +3,7 @@ package com.bd.mspring.tinyioc.xml;
 import com.bd.mspring.tinyioc.AbstractBeanDefinitionReader;
 import com.bd.mspring.tinyioc.BeanDefinition;
 import com.bd.mspring.tinyioc.PropertyValue;
+import com.bd.mspring.tinyioc.PropertyValues;
 import com.bd.mspring.tinyioc.io.ResourceLoader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -27,7 +28,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
     @Override
     public void loadBeanDefinitions(String location) throws Exception {
         InputStream inputStream = getResourceLoader().getResource(location).getInputStream();
-
+        doLoadBeanDefinitions(inputStream);
     }
 
     protected void doLoadBeanDefinitions(InputStream inputStream) throws Exception {
@@ -73,7 +74,8 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
                 Element propertyEle = (Element) item;
                 String name = propertyEle.getAttribute("name");
                 String value = propertyEle.getAttribute("value");
-                beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue(name, value));
+                PropertyValues propertyValues = beanDefinition.getPropertyValues();
+                propertyValues.addPropertyValue(new PropertyValue(name, value));
             }
 
         }

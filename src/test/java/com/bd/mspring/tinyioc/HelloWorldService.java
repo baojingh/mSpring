@@ -10,7 +10,7 @@ public class HelloWorldService {
     private String text;
 
     public void hello() {
-        System.out.printf(text);
+        System.out.println(text);
     }
 
     public String getText() {
