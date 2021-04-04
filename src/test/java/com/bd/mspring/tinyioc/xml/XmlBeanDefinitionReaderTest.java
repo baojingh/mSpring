@@ -36,7 +36,7 @@ public class XmlBeanDefinitionReaderTest {
         EatCoockieService eatCoockieService = (EatCoockieService) beanFactory.getBean("eatCoockieService");
         eatCoockieService.setName("bj");
 
-        eatCoockieService.eat();
+        eatCoockieService.eat("bj");
 
     }
 }

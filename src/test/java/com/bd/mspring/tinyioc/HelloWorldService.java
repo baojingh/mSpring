@@ -8,8 +8,15 @@ package com.bd.mspring.tinyioc;
 public class HelloWorldService {
 
     private String text;
+    private EatCoockieService eatCoockieService;
+
+
+    public void setEatCoockieService(EatCoockieService eatCoockieService) {
+        this.eatCoockieService = eatCoockieService;
+    }
 
     public void hello() {
+        eatCoockieService.eat("bj");
         System.out.println(text);
     }
 

@@ -1,8 +1,14 @@
 package com.bd.mspring.tinyioc;
 
+import com.bd.mspring.tinyioc.factory.AbstractBeanFactory;
 import com.bd.mspring.tinyioc.factory.AutowiredCapableBeanFactory;
 import com.bd.mspring.tinyioc.factory.BeanFactory;
+import com.bd.mspring.tinyioc.io.ResourceLoader;
+import com.bd.mspring.tinyioc.xml.XmlBeanDefinitionReader;
+import com.bd.mspring.tinyioc.xml.XmlBeanDefinitionReaderTest;
 import org.junit.Test;
+
+import java.util.Map;
 
 /**
  * @Author: baojing.he
@@ -28,6 +34,28 @@ public class BeanFactoryTest {
 
         HelloWorldService helloWorldService = (HelloWorldService) beanFactory.getBean("helloWorldService");
         helloWorldService.hello();
+    }
+
+    @Test
+    public void testLazy() throws Exception {
+        // 1.读取配置
+        XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(new ResourceLoader());
+        xmlBeanDefinitionReader.loadBeanDefinitions("tinyioc.xml");
+
+        // 2.初始化BeanFactory并注册bean
+        AbstractBeanFactory beanFactory = new AutowiredCapableBeanFactory();
+        for (Map.Entry<String, BeanDefinition> beanDefinitionEntry : xmlBeanDefinitionReader.getRegistry().entrySet()) {
+            beanFactory.registerBeanDefinition(beanDefinitionEntry.getKey(), beanDefinitionEntry.getValue());
+        }
+
+        // 3.获取bean
+        HelloWorldService helloWorldService = (HelloWorldService) beanFactory.getBean("helloWorldService");
+        helloWorldService.hello();
+    }
+
+    @Test
+    public void testPreInstiate() {
+
     }
 
 

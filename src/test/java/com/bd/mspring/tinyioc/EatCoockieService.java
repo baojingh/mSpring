@@ -1,5 +1,7 @@
 package com.bd.mspring.tinyioc;
 
+import org.junit.Assert;
+
 /**
  * @Author: baojing.he
  * @Date: 2021-04-03 12:45
@@ -7,8 +9,14 @@ package com.bd.mspring.tinyioc;
  */
 public class EatCoockieService {
     private String name;
+    private HelloWorldService helloWorldService;
 
-    public String eat() {
+    public void setHelloWorldService(HelloWorldService helloWorldService) {
+        this.helloWorldService = helloWorldService;
+    }
+
+    public String eat(String name) {
+        Assert.assertNotNull(helloWorldService);
         System.out.println("eat some coockies, " + name);
         return "eat finish";
     }

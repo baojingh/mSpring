@@ -2,8 +2,8 @@ package com.bd.mspring.tinyioc.xml;
 
 import com.bd.mspring.tinyioc.AbstractBeanDefinitionReader;
 import com.bd.mspring.tinyioc.BeanDefinition;
+import com.bd.mspring.tinyioc.BeanReference;
 import com.bd.mspring.tinyioc.PropertyValue;
-import com.bd.mspring.tinyioc.PropertyValues;
 import com.bd.mspring.tinyioc.io.ResourceLoader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -13,7 +13,6 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
-import java.util.Map;
 
 /**
  * @Author: baojing.he
@@ -21,7 +20,7 @@ import java.util.Map;
  * @Description:
  */
 public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
-    protected XmlBeanDefinitionReader(ResourceLoader resourceLoader) {
+    public XmlBeanDefinitionReader(ResourceLoader resourceLoader) {
         super(resourceLoader);
     }
 
@@ -33,22 +32,23 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
     protected void doLoadBeanDefinitions(InputStream inputStream) throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = factory.newDocumentBuilder();
-        Document document = documentBuilder.parse(inputStream);
-        registerBeanDefinition(document);
-
+        DocumentBuilder docBuilder = factory.newDocumentBuilder();
+        Document doc = docBuilder.parse(inputStream);
+        // 解析bean
+        registerBeanDefinitions(doc);
+        inputStream.close();
     }
 
-    public void registerBeanDefinition(Document document) {
-        Element root = document.getDocumentElement();
-        parseBeanDefinitions(root);
+    public void registerBeanDefinitions(Document doc) {
+        Element root = doc.getDocumentElement();
 
+        parseBeanDefinitions(root);
     }
 
     protected void parseBeanDefinitions(Element root) {
-        NodeList childNodes = root.getChildNodes();
-        for (int i = 0; i < childNodes.getLength(); i++) {
-            Node node = childNodes.item(i);
+        NodeList nl = root.getChildNodes();
+        for (int i = 0; i < nl.getLength(); i++) {
+            Node node = nl.item(i);
             if (node instanceof Element) {
                 Element ele = (Element) node;
                 processBeanDefinition(ele);
@@ -56,53 +56,36 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         }
     }
 
-    private void processBeanDefinition(Element ele) {
+    protected void processBeanDefinition(Element ele) {
         String name = ele.getAttribute("name");
         String className = ele.getAttribute("class");
         BeanDefinition beanDefinition = new BeanDefinition();
         processProperty(ele, beanDefinition);
         beanDefinition.setBeanClassName(className);
-        Map<String, BeanDefinition> registry = getRegistry();
-        registry.put(name, beanDefinition);
+        getRegistry().put(name, beanDefinition);
     }
 
     private void processProperty(Element ele, BeanDefinition beanDefinition) {
         NodeList propertyNode = ele.getElementsByTagName("property");
         for (int i = 0; i < propertyNode.getLength(); i++) {
-            Node item = propertyNode.item(i);
-            if (item instanceof Element) {
-                Element propertyEle = (Element) item;
+            Node node = propertyNode.item(i);
+            if (node instanceof Element) {
+                Element propertyEle = (Element) node;
                 String name = propertyEle.getAttribute("name");
                 String value = propertyEle.getAttribute("value");
-                PropertyValues propertyValues = beanDefinition.getPropertyValues();
-                propertyValues.addPropertyValue(new PropertyValue(name, value));
+                if (value != null && value.length() > 0) {
+                    beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue(name, value));
+                } else {
+                    String ref = propertyEle.getAttribute("ref");
+                    if (ref == null || ref.length() == 0) {
+                        throw new IllegalArgumentException("Configuration problem: <property> element for property '"
+                                + name + "' must specify a ref or value");
+                    }
+                    BeanReference beanReference = new BeanReference(ref);
+                    beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue(name, beanReference));
+                }
             }
-
         }
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
