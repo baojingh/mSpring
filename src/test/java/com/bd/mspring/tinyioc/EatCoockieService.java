@@ -21,10 +21,6 @@ public class EatCoockieService {
         return "eat finish";
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name = name;
     }

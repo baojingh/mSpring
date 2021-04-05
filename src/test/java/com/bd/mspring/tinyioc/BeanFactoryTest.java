@@ -5,7 +5,6 @@ import com.bd.mspring.tinyioc.factory.AutowiredCapableBeanFactory;
 import com.bd.mspring.tinyioc.factory.BeanFactory;
 import com.bd.mspring.tinyioc.io.ResourceLoader;
 import com.bd.mspring.tinyioc.xml.XmlBeanDefinitionReader;
-import com.bd.mspring.tinyioc.xml.XmlBeanDefinitionReaderTest;
 import org.junit.Test;
 
 import java.util.Map;
@@ -55,7 +54,22 @@ public class BeanFactoryTest {
 
     @Test
     public void testPreInstiate() {
+        XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(new ResourceLoader());
+        try {
+            xmlBeanDefinitionReader.loadBeanDefinitions("tinyioc.xml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        AutowiredCapableBeanFactory beanFactory = new AutowiredCapableBeanFactory();
+        Map<String, BeanDefinition> registry = xmlBeanDefinitionReader.getRegistry();
+        for (Map.Entry<String, BeanDefinition> entry : registry.entrySet()) {
+            beanFactory.registerBeanDefinition(entry.getKey(), entry.getValue());
+        }
 
+        beanFactory.preInstantiateSingleton();
+
+        HelloWorldService helloWorldService = (HelloWorldService) beanFactory.getBean("helloWorldService");
+        helloWorldService.hello();
     }
 
 
