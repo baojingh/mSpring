@@ -1,4 +1,4 @@
-package com.bd.mspring.tinyioc;
+package com.bd.mspring.tinyioc.beans;
 
 /**
  * @Author: baojing.he

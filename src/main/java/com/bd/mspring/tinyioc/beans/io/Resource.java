@@ -1,4 +1,4 @@
-package com.bd.mspring.tinyioc.io;
+package com.bd.mspring.tinyioc.beans.io;
 
 import java.io.IOException;
 import java.io.InputStream;

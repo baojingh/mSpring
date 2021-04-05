@@ -1,10 +1,10 @@
-package com.bd.mspring.tinyioc.xml;
+package com.bd.mspring.tinyioc.beans.xml;
 
-import com.bd.mspring.tinyioc.AbstractBeanDefinitionReader;
-import com.bd.mspring.tinyioc.BeanDefinition;
+import com.bd.mspring.tinyioc.beans.AbstractBeanDefinitionReader;
+import com.bd.mspring.tinyioc.beans.BeanDefinition;
 import com.bd.mspring.tinyioc.BeanReference;
-import com.bd.mspring.tinyioc.PropertyValue;
-import com.bd.mspring.tinyioc.io.ResourceLoader;
+import com.bd.mspring.tinyioc.beans.PropertyValue;
+import com.bd.mspring.tinyioc.beans.io.ResourceLoader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

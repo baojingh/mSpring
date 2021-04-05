@@ -1,10 +1,13 @@
 package com.bd.mspring.tinyioc;
 
-import com.bd.mspring.tinyioc.factory.AbstractBeanFactory;
-import com.bd.mspring.tinyioc.factory.AutowiredCapableBeanFactory;
-import com.bd.mspring.tinyioc.factory.BeanFactory;
-import com.bd.mspring.tinyioc.io.ResourceLoader;
-import com.bd.mspring.tinyioc.xml.XmlBeanDefinitionReader;
+import com.bd.mspring.tinyioc.beans.BeanDefinition;
+import com.bd.mspring.tinyioc.beans.PropertyValue;
+import com.bd.mspring.tinyioc.beans.PropertyValues;
+import com.bd.mspring.tinyioc.beans.factory.AbstractBeanFactory;
+import com.bd.mspring.tinyioc.beans.factory.AutowiredCapableBeanFactory;
+import com.bd.mspring.tinyioc.beans.factory.BeanFactory;
+import com.bd.mspring.tinyioc.beans.io.ResourceLoader;
+import com.bd.mspring.tinyioc.beans.xml.XmlBeanDefinitionReader;
 import org.junit.Test;
 
 import java.util.Map;

@@ -1,7 +1,7 @@
-package com.bd.mspring.tinyioc;
+package com.bd.mspring.tinyioc.beans;
 
 
-import com.bd.mspring.tinyioc.io.ResourceLoader;
+import com.bd.mspring.tinyioc.beans.io.ResourceLoader;
 
 import java.util.HashMap;
 import java.util.Map;

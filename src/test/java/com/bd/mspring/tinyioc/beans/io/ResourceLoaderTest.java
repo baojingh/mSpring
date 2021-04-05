@@ -1,4 +1,4 @@
-package com.bd.mspring.tinyioc.io;
+package com.bd.mspring.tinyioc.beans.io;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -1,6 +1,4 @@
-package com.bd.mspring.tinyioc;
-
-import java.util.LinkedList;
+package com.bd.mspring.tinyioc.beans;
 
 /**
  * @Author: baojing.he

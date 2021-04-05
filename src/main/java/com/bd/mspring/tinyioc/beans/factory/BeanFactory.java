@@ -1,6 +1,6 @@
-package com.bd.mspring.tinyioc.factory;
+package com.bd.mspring.tinyioc.beans.factory;
 
-import com.bd.mspring.tinyioc.BeanDefinition;
+import com.bd.mspring.tinyioc.beans.BeanDefinition;
 
 /**
  * @Author: baojing.he

@@ -1,11 +1,11 @@
-package com.bd.mspring.tinyioc.xml;
+package com.bd.mspring.tinyioc.beans.xml;
 
-import com.bd.mspring.tinyioc.BeanDefinition;
+import com.bd.mspring.tinyioc.beans.BeanDefinition;
 import com.bd.mspring.tinyioc.EatCoockieService;
 import com.bd.mspring.tinyioc.HelloWorldService;
-import com.bd.mspring.tinyioc.factory.AutowiredCapableBeanFactory;
-import com.bd.mspring.tinyioc.factory.BeanFactory;
-import com.bd.mspring.tinyioc.io.ResourceLoader;
+import com.bd.mspring.tinyioc.beans.factory.AutowiredCapableBeanFactory;
+import com.bd.mspring.tinyioc.beans.factory.BeanFactory;
+import com.bd.mspring.tinyioc.beans.io.ResourceLoader;
 import org.junit.Test;
 
 import java.util.Map;
