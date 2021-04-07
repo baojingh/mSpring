@@ -17,6 +17,14 @@ public abstract class AbstractBeanFactory implements BeanFactory {
     private Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
     private List<String> beanDefinitionNames = new LinkedList<String>();
 
+    /**
+     * 从beanDefinitionMap中获取beanDefinition对象，如果不存在就调用doCreateBean方法，
+     * doCreateBean在实现类中有具体实现，当前抽象类只有抽象方法供实现类实现
+     *
+     * @param beanName
+     * @return
+     */
+    @Override
     public Object getBean(String beanName) {
         BeanDefinition beanDefinition = beanDefinitionMap.get(beanName);
         if (beanDefinition == null) {
@@ -42,6 +50,7 @@ public abstract class AbstractBeanFactory implements BeanFactory {
      * @param name
      * @param beanDefinition
      */
+    @Override
     public void registerBeanDefinition(String name, BeanDefinition beanDefinition) {
         beanDefinitionMap.put(name, beanDefinition);
         beanDefinitionNames.add(name);
