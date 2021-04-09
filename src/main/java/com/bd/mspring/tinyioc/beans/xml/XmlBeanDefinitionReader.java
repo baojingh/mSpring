@@ -1,6 +1,5 @@
 package com.bd.mspring.tinyioc.beans.xml;
 
-import com.bd.mspring.tinyioc.beans.AbstractBeanDefinitionReader;
 import com.bd.mspring.tinyioc.beans.BeanDefinition;
 import com.bd.mspring.tinyioc.BeanReference;
 import com.bd.mspring.tinyioc.beans.PropertyValue;

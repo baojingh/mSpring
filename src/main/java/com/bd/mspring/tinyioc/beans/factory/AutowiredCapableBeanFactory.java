@@ -5,6 +5,7 @@ import com.bd.mspring.tinyioc.BeanReference;
 import com.bd.mspring.tinyioc.beans.PropertyValue;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 /**
  * @Author: baojing.he
@@ -21,6 +22,12 @@ public class AutowiredCapableBeanFactory extends AbstractBeanFactory {
         return bean;
     }
 
+    /**
+     * 创建bean对象
+     * @param beanDefinition
+     * @return
+     * @throws Exception
+     */
     protected Object createBeanInstance(BeanDefinition beanDefinition) throws Exception {
         Class beanClass = beanDefinition.getBeanClass();
         Object o = beanClass.newInstance();
@@ -28,8 +35,10 @@ public class AutowiredCapableBeanFactory extends AbstractBeanFactory {
     }
 
     protected void applyPropertyValues(Object bean, BeanDefinition mbd) throws Exception {
-        for (PropertyValue propertyValue : mbd.getPropertyValues().getPropertyValueList()) {
-            Field declaredField = bean.getClass().getDeclaredField(propertyValue.getName());
+        List<PropertyValue> propertyValueList = mbd.getPropertyValues().getPropertyValueList();
+        for (PropertyValue propertyValue : propertyValueList) {
+            Class<?> aClass = bean.getClass();
+            Field declaredField = aClass.getDeclaredField(propertyValue.getName());
             declaredField.setAccessible(true);
             Object value = propertyValue.getValue();
             if (value instanceof BeanReference) {
