@@ -15,7 +15,7 @@
 - 为bean装配属性，如果属性是BeanReference类型，就使用getBean获取到具体的bean，再装配到bean中。
 
 ### 1.1.1 Bean循环依赖问题
-#### 1.1.1.1 问题复现
+具体可以参看这篇文章：`https://blog.csdn.net/hebaojing/article/details/115586064`
 
 
 
