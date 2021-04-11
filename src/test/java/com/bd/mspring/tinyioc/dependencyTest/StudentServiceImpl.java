@@ -1,7 +1,6 @@
 package com.bd.mspring.tinyioc.dependencyTest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,9 +15,9 @@ public class StudentServiceImpl {
     @Autowired
     private TeacherServiceImpl teacherService;
 
-//    public StudentServiceImpl(@Lazy(value = false) TeacherServiceImpl teacherService) {
-//        this.teacherService = teacherService;
-//    }
+    public void tst1() {
+        teacherService.printTeacherInfo();
+    }
 
     public void printStudentInfo() {
         System.out.println("this is student service");

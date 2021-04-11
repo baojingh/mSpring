@@ -15,9 +15,11 @@ public class TeacherServiceImpl {
     @Autowired
     private StudentServiceImpl studentService;
 
-//    public TeacherServiceImpl(StudentServiceImpl studentService) {
-//        this.studentService = studentService;
-//    }
+
+    public void test2() {
+        studentService.printStudentInfo();
+    }
+
 
     public void printTeacherInfo() {
         System.out.println("this is teacher service");
