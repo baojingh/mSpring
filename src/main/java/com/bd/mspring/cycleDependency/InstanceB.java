@@ -15,6 +15,9 @@ public class InstanceB {
     @Autowired
     private InstanceA instanceA;
 
+    public InstanceB() {
+    }
+
     public InstanceB(InstanceA instanceA) {
         this.instanceA = instanceA;
     }

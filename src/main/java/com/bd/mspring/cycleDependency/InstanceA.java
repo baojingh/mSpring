@@ -1,6 +1,7 @@
 package com.bd.mspring.cycleDependency;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,6 +15,9 @@ public class InstanceA {
 
     @Autowired
     private InstanceB instanceB;
+
+    public InstanceA() {
+    }
 
     public InstanceA(InstanceB instanceB) {
         this.instanceB = instanceB;

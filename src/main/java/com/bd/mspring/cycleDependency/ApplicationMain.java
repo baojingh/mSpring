@@ -14,6 +14,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Description:
  */
 public class ApplicationMain {
+
+
+    private static Map<String, Object> singleObjects = new ConcurrentHashMap<>();
+
+
     private static Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
 
 
@@ -21,7 +26,7 @@ public class ApplicationMain {
         RootBeanDefinition aBeanDefinition = new RootBeanDefinition(InstanceA.class);
         RootBeanDefinition bBeanDefinition = new RootBeanDefinition(InstanceB.class);
         beanDefinitionMap.put("instanceA", aBeanDefinition);
-        beanDefinitionMap.put("instanceA", bBeanDefinition);
+        beanDefinitionMap.put("instanceB", bBeanDefinition);
     }
 
     /**
@@ -32,10 +37,19 @@ public class ApplicationMain {
      * @throws Exception
      */
     public static Object getBean(String beanName) {
+
+        /**
+         * 该对象已经存在于缓存中，直接返回
+         */
+        Object obj = singleObjects.get(beanName);
+        if (obj != null) {
+            return obj;
+        }
+
         /**
          * 1. 实例化bean对象
          */
-        RootBeanDefinition beanDefinition = (RootBeanDefinition)beanDefinitionMap.get(beanName);
+        RootBeanDefinition beanDefinition = (RootBeanDefinition) beanDefinitionMap.get(beanName);
         Class beanClass = beanDefinition.getBeanClass();
         Object instanceBean = null;
         try {
@@ -47,30 +61,19 @@ public class ApplicationMain {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        singleObjects.put(beanName, instanceBean);
 
-        Field[] declaredFields = beanClass.getDeclaredFields();
-        for (Field declaredField: declaredFields) {
-            // 判断每一个属性是否有@Autowired注解
+
+
+        Field[] fields = beanClass.getDeclaredFields();
+        for (Field declaredField : fields) {
             Autowired annotation = declaredField.getAnnotation(Autowired.class);
             if (annotation != null) {
-                // 设置这个属性是可访问的
                 declaredField.setAccessible(true);
-                // 那么这个时候还要构建这个属性的bean.
-                /*
-                 * 获取属性的名字
-                 * 真实情况, spring这里会判断, 是根据名字, 还是类型, 还是构造函数来获取类.
-                 * 我们这里模拟, 所以简单一些, 直接根据名字获取.
-                 */
                 String name = declaredField.getName();
-
-                /**
-                 * 这样, 在这里我们就拿到了 instanceB 的 bean
-                 */
-                Object fileObject = getBean(name);
-
-                // 为属性设置类型
+                Object bean = getBean(name);
                 try {
-                    declaredField.set(instanceBean, fileObject);
+                    declaredField.set(instanceBean, bean);
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 } catch (Exception e) {
@@ -78,8 +81,6 @@ public class ApplicationMain {
                 }
             }
         }
-
-
         /**
          * 第三步: 初始化
          * 初始化就是设置类的init-method.这个可以设置也可以不设置. 我们这里就不设置了
@@ -91,7 +92,8 @@ public class ApplicationMain {
 
     public static void main(String[] args) {
         loadBeanDefinition();
-        Object instanceA = getBean("instanceA");
+        InstanceA instanceA = (InstanceA) getBean("instanceA");
+        instanceA.say();
     }
 
 
